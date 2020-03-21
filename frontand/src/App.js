@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Header from "./Container/Header/Header";
+import {connect} from "react-redux";
+import {Route, Switch} from "react-router-dom";
+import Register from "./Container/Register/Register";
+import Login from "./Container/Login/Login";
+import {logoutUser} from "./Store/Actions/actionUsers";
+import AddProduct from "./Components/AddProduct/AddProduct";
+import {orderCategory} from "./Store/Actions/actionCategories";
+import Products from "./Container/Products/Products";
+import Categories from "./Container/Categories/Categories";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+    componentDidMount() {
+        this.props.orderCategories();
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Header
+                    user={this.props.user}
+                    logout={this.props.logoutUser}
+                />
+                <div className='container'>
+                    <Categories/>
+                    <Switch>
+                        <Route path="/" exact component={Products}/>
+                        <Route path="/:id" exact component={Products}/>
+                        <Route path="/register" exact component={Register}/>
+                        <Route path="/login" exact component={Login}/>
+                        <Route path="/add" exact component={AddProduct}/>
+                    </Switch>
+                </div>
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = state => ({
+    user: state.users.user
+});
+
+const mapDispatchToProps = dispatch => ({
+    logoutUser : () => dispatch(logoutUser()),
+    orderCategories : () => dispatch(orderCategory())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

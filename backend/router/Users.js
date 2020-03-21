@@ -7,9 +7,9 @@ const User = require('../models/User');
 
 
 router.post('/', async (req, res) => {
-    try {
-        const user = new User(req.body);
+    const user = new User(req.body);
 
+    try {
         user.generateToken();
         await user.save();
 

@@ -2,6 +2,7 @@ const User = require('../models/User');
 
 const auth = async (req, res, next) => {
     const authorization = req.get('Authorization');
+    
     const [type, token] = authorization.split(' ');
 
     if (type !== 'Token' || !token) {

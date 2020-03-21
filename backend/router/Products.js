@@ -41,8 +41,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', [auth, upload.single('image')], async (req, res) => {
     const productData = req.body;
     const user = req.user;
-    productData.user = user._id;
 
+    productData.user = user._id;
     if (req.file) {
         productData.image = req.file.filename;
     }
