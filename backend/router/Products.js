@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     let category = null;
 
     if (req.query.category) {
-        category = {category: req.query.category};
+        category = {categoryId: req.query.category};
     }
 
     try {
@@ -29,8 +29,8 @@ router.get('/:id', async (req, res) => {
     try {
         const product = await Product
             .findOne({_id: req.params.id})
-            .populate('user', ['fullName', 'phoneNumber'])
-            .populate('category', 'title');
+            .populate('userId', ['fullName', 'phoneNumber'])
+            .populate('categoryId', 'title');
 
         return res.send(product);
     } catch (e) {
@@ -41,17 +41,16 @@ router.get('/:id', async (req, res) => {
 router.post('/', [auth, upload.single('image')], async (req, res) => {
     const productData = req.body;
     const user = req.user;
+    productData.userId = user._id;
+    productData.datetime = new Date();
 
-    productData.user = user._id;
     if (req.file) {
         productData.image = req.file.filename;
     }
-
+    const product = new Product(productData);
     try {
-        const item = new Product(productData);
-
-        await item.save();
-        return res.send({message: 'Product added!!!', item});
+        await product.save();
+        return res.send({message: 'Product added!!!', product});
     } catch (e) {
         return res.status(404).send(e);
     }
@@ -59,17 +58,18 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
     try {
-        const product = await Product.findOne({_id: req.params.id});
+        const product = await Product.findOne({_id : req.params.id});
         const user = req.user;
-        if (product.userId === user._id) {
-            await Product.deleteOne({_id: req.params.id});
-            return res.status(200).send({message: 'Item deleted!'});
+        if (product.userId.equals(user._id)) {
+            await product.remove();
+            return res.status(200).send({message: 'Продукт удален!'});
         } else {
-            return res.status(403).send({message: 'Access forbidden!'});
+            return res.status(401).send({message: 'Доступ запрещен!'});
         }
     } catch (error) {
         return res.status(404).send(error);
     }
+
 });
 
 module.exports = router;

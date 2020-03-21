@@ -10,6 +10,7 @@ import AddProduct from "./Components/AddProduct/AddProduct";
 import {orderCategory} from "./Store/Actions/actionCategories";
 import Products from "./Container/Products/Products";
 import Categories from "./Container/Categories/Categories";
+import Product from "./Container/Product/Product";
 
 
 class App extends Component {
@@ -25,10 +26,10 @@ class App extends Component {
                     logout={this.props.logoutUser}
                 />
                 <div className='container'>
-                    <Categories/>
                     <Switch>
                         <Route path="/" exact component={Products}/>
-                        <Route path="/:id" exact component={Products}/>
+                        <Route path="/products/:id" exact component={Products}/>
+                        <Route path='/product/:id' exact component={Product}/>
                         <Route path="/register" exact component={Register}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/add" exact component={AddProduct}/>

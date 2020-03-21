@@ -8,9 +8,12 @@ class Categories extends Component {
         return (
             <div style={styles}>
                 <Nav justified={true}>
+                    <NavItem>
+                        <NavLink tag={RouterNavLink} to='/'>Все</NavLink>
+                    </NavItem>
                 {this.props.categories.map(category =>
                         <NavItem key={category._id}>
-                            <NavLink tag={RouterNavLink} to={`/${category._id}`}>{category.title}</NavLink>
+                            <NavLink tag={RouterNavLink} to={`/products/${category._id}`}>{category.title}</NavLink>
                         </NavItem>
 
                 )}
@@ -23,6 +26,7 @@ const styles = {
     width: '100%',
     background: 'lightgreen',
     marginTop: '100px',
+    marginBottom: '20px',
     padding: '20px',
     color: 'white',
     opacity: '80%'

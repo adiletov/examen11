@@ -7,7 +7,7 @@ import {addProduct} from "../../Store/Actions/actionProducts";
 class ItemForm extends Component {
     state = {
         title: '',
-        category: '',
+        categoryId: '',
         description: '',
         price: '',
         image: null,
@@ -61,13 +61,13 @@ class ItemForm extends Component {
                 />
 
                 <FormElement
-                    propertyName="category"
+                    propertyName="categoryId"
                     title="Category:"
                     type="select"
                     selectOptions={this.props.categories}
-                    value={this.state.category}
+                    value={this.state.categoryId}
                     onChange={this.inputChangeHandler}
-                    error={this.getFieldHasError('category')}
+                    error={this.getFieldHasError('categoryId')}
                 />
 
                 <FormElement
@@ -96,8 +96,7 @@ class ItemForm extends Component {
                     error={this.getFieldHasError('image')}
                 />
 
-                <Button type="submit" color="info">Add item</Button>
-
+                <Button type="submit" color="info">Добавить продукт</Button>
             </Form>
         );
     }
@@ -106,6 +105,7 @@ const mapStateToProps = state => ({
     error: state.products.error,
     categories: state.categories.categories
 });
+
 const mapDispatchToProps = dispatch => ({
     addProduct: (product) => dispatch(addProduct(product))
 });
