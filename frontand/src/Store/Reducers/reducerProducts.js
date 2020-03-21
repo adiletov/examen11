@@ -1,7 +1,7 @@
 import {
     ADD_PRODUCT_ERROR,
     ADD_PRODUCT_REQUEST,
-    ADD_PRODUCT_SUCCESS,
+    ADD_PRODUCT_SUCCESS, DELETE_PRODUCT_ERROR, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS,
     ORDER_PRODUCT_ERROR,
     ORDER_PRODUCT_REQUEST,
     ORDER_PRODUCT_SUCCESS,
@@ -37,6 +37,12 @@ const reducerProducts = (state = initialState, action) => {
             return {...state, load: true};
         case ORDER_PRODUCT_ERROR:
             return {...state, error: action.error, load: false};
+        case DELETE_PRODUCT_ERROR:
+            return {...state, error: action.error, load: false};
+        case DELETE_PRODUCT_REQUEST:
+            return {...state, load: true};
+        case DELETE_PRODUCT_SUCCESS:
+            return {...state, load: false, error: null};
         default:
             return state
     }

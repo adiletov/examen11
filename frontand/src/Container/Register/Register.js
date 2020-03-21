@@ -35,7 +35,6 @@ class Register extends Component {
     };
 
     render() {
-        console.log(this.props.error)
         return (
             <Fragment>
                 <h3 className="my-3 text-center">Sign up</h3>

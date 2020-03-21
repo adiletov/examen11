@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './index.css';
 
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
@@ -15,6 +16,7 @@ import {connectRouter, routerMiddleware} from "connected-react-router";
 import reducerUsers from "./Store/Reducers/reducerUsers";
 import reducerProducts from "./Store/Reducers/reducerProducts";
 import reducerCategories from "./Store/Reducers/reducerCategories";
+
 
 
 const saveToLocalStorage = state => {

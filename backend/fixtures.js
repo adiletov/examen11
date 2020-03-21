@@ -24,7 +24,7 @@ const run = async () => {
         {title: 'Транспорт'},
         {title: 'Недвижимость'},
         {title: 'Электроника'},
-        {title: 'Спорт и Хобби'},w
+        {title: 'Спорт и Хобби'},
     );
 
     await Product.create(

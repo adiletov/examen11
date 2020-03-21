@@ -12,7 +12,6 @@ import {
 } from "./actionTypes";
 import axiosApi from "../../axiosApi";
 import {push} from "connected-react-router";
-
 export const addProductSuccess = () => ({type: ADD_PRODUCT_SUCCESS});
 export const addProductRequest = () => ({type: ADD_PRODUCT_REQUEST});
 export const addProductError = (error) => ({type: ADD_PRODUCT_ERROR, error});
@@ -36,7 +35,6 @@ export const addProduct = (product) => {
         try {
             dispatch(addProductRequest());
             await axiosApi.post('/products', product, config);
-
             dispatch(addProductSuccess());
             dispatch(push('/'))
         } catch (e) {
@@ -86,7 +84,11 @@ export const deleteProduct = (id) => {
             dispatch(deleteProductSuccess());
             dispatch(push('/'));
         } catch (error) {
-            dispatch(deleteProductError(error));
+            if (error.response && error.response.data) {
+                dispatch(deleteProductError(error.response.data));
+            } else {
+                dispatch(deleteProductError({global: 'No connection'}));
+            }
         }
     }
 };

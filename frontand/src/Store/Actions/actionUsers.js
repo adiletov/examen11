@@ -10,7 +10,7 @@ import {
 import {push} from "connected-react-router";
 import axiosApi from "../../axiosApi";
 
-export const registerUserSuccess = () => ({type: REGISTER_USER_SUCCESS});
+export const registerUserSuccess = (user) => ({type: REGISTER_USER_SUCCESS, user});
 export const registerUserRequest = () => ({type: REGISTER_USER_REQUEST});
 export const registerUserError = (error) => ({type: REGISTER_USER_ERROR, error});
 
@@ -70,9 +70,9 @@ export const logoutUser = () => {
         } catch (error){
             dispatch(logoutUserRequest());
             if (error.response && error.response.data) {
-                dispatch(loginUserError(error.response.data));
+                dispatch(logoutUserError(error.response.data));
             } else {
-                dispatch(loginUserError({global: 'No connection'}));
+                dispatch(logoutUserError({global: 'No connection'}));
             }
         }
     }

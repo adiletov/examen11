@@ -50,7 +50,7 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
     const product = new Product(productData);
     try {
         await product.save();
-        return res.send({message: 'Product added!!!', product});
+        return res.send({message: 'Продукт добавлен!!!', product});
     } catch (e) {
         return res.status(404).send(e);
     }
@@ -58,16 +58,17 @@ router.post('/', [auth, upload.single('image')], async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
     try {
-        const product = await Product.findOne({_id : req.params.id});
+        const product = await Product.findOne({_id : req.params.id}).populate('userId');
         const user = req.user;
-        if (product.userId.equals(user._id)) {
+
+        if (product.userId._id.equals(user._id)) {
             await product.remove();
             return res.status(200).send({message: 'Продукт удален!'});
         } else {
             return res.status(401).send({message: 'Доступ запрещен!'});
         }
     } catch (error) {
-        return res.status(404).send(error);
+        return res.status(403).send(error);
     }
 
 });

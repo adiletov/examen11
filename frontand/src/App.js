@@ -9,7 +9,6 @@ import {logoutUser} from "./Store/Actions/actionUsers";
 import AddProduct from "./Components/AddProduct/AddProduct";
 import {orderCategory} from "./Store/Actions/actionCategories";
 import Products from "./Container/Products/Products";
-import Categories from "./Container/Categories/Categories";
 import Product from "./Container/Product/Product";
 
 
@@ -21,20 +20,20 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Header
-                    user={this.props.user}
-                    logout={this.props.logoutUser}
-                />
-                <div className='container'>
-                    <Switch>
-                        <Route path="/" exact component={Products}/>
-                        <Route path="/products/:id" exact component={Products}/>
-                        <Route path='/product/:id' exact component={Product}/>
-                        <Route path="/register" exact component={Register}/>
-                        <Route path="/login" exact component={Login}/>
-                        <Route path="/add" exact component={AddProduct}/>
-                    </Switch>
-                </div>
+                    <Header
+                        user={this.props.user}
+                        logout={this.props.logoutUser}
+                    />
+                    <div className='container'>
+                        <Switch>
+                            <Route path="/" exact component={Products}/>
+                            <Route path="/products/:id" exact component={Products}/>
+                            <Route path='/product/:id' exact component={Product}/>
+                            <Route path="/register" exact component={Register}/>
+                            <Route path="/login" exact component={Login}/>
+                            <Route path="/add" exact component={AddProduct}/>
+                        </Switch>
+                    </div>
             </div>
         );
     }

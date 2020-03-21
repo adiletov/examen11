@@ -53,7 +53,7 @@ class Login extends Component {
                         />
 
                         <FormGroup className="mb-0 mt-4">
-                            <Button type="submit" color="info" className="w-100">Войти</Button>
+                            <Button type="submit" color="success" className="w-100">Войти</Button>
                         </FormGroup>
                     </Form>
                 </div>

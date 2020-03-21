@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {deleteProduct, orderProduct} from "../../Store/Actions/actionProducts";
 import Prelouder from "../../Components/Prelouder/Prelouder";
 import {apiURL} from "../../apiURL";
-import {Button} from "reactstrap";
+import {Alert, Button} from "reactstrap";
 
 class Product extends Component {
     componentDidMount() {
@@ -36,7 +36,11 @@ class Product extends Component {
                     <p><b>Цена:</b> {product.price} $</p>
                     <p><b>Продавец:</b> {sellerName}</p>
                     <p><b>Номер продавца:</b> {sellerPhone}</p>
-
+                {this.props.error &&
+                <Alert color="danger">
+                    {this.props.error.message || this.props.error.global}
+                </Alert>
+                }
                 {this.props.user
                     ? <Button outline color="danger"
                               size="sm" className="mb-3"
@@ -51,7 +55,8 @@ class Product extends Component {
 
 const mapStateToProps = state => ({
     product: state.products.product,
-    user: state.users.user
+    user: state.users.user,
+    error: state.products.error
 });
 const mapDispatchToProps = dispatch => ({
     orderProduct: (id) => dispatch(orderProduct(id)),
